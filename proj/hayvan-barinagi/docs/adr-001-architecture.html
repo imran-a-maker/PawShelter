@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADR-001: Mimari Seçimi – PawShelter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md sticky top-0 z-50 print:hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center space-x-2">
+          <a href="../index.html" class="flex items-center gap-2">
+            <span class="text-2xl">🐾</span>
+            <span class="text-xl font-bold text-purple-700">PawShelter</span>
+          </a>
+          <span class="text-gray-300 mx-2">/</span>
+          <span class="text-gray-500 text-sm">ADR Docs</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="adr-002-database.html" class="text-gray-500 hover:text-purple-700 text-sm transition">ADR-002</a>
+          <a href="adr-003-auth.html" class="text-gray-500 hover:text-purple-700 text-sm transition">ADR-003</a>
+          <a href="api-docs.html" class="text-gray-500 hover:text-purple-700 text-sm transition">API Docs</a>
+          <button onclick="window.print()" class="text-gray-500 hover:text-gray-700 text-sm border border-gray-200 px-3 py-1 rounded-lg">
+            <i class="fas fa-print mr-1"></i>Yazdır
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-4xl mx-auto px-4 py-10">
+
+    <!-- ADR Header -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="bg-purple-100 text-purple-700 font-bold px-3 py-1 rounded-lg text-sm">ADR-001</span>
+        <span class="bg-green-100 text-green-700 font-bold px-3 py-1 rounded-lg text-sm flex items-center gap-1">
+          <i class="fas fa-check-circle"></i> Kabul Edildi
+        </span>
+        <span class="text-gray-400 text-sm ml-auto">Tarih: 15 Mart 2024</span>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Mimari Seçimi: Clean / Layered Architecture</h1>
+      <p class="text-gray-500">Hayvan Barınağı Yönetim Platformu için yazılım mimarisi kararı</p>
+    </div>
+
+    <!-- Navigation between ADRs -->
+    <div class="flex gap-4 mb-8">
+      <div class="flex-1 bg-purple-700 text-white rounded-xl p-4 text-center">
+        <div class="text-xs text-purple-200 mb-1">Mevcut</div>
+        <div class="font-bold">ADR-001: Mimari</div>
+      </div>
+      <a href="adr-002-database.html" class="flex-1 bg-white border border-gray-200 rounded-xl p-4 text-center hover:border-purple-300 hover:shadow-sm transition">
+        <div class="text-xs text-gray-400 mb-1">Sonraki</div>
+        <div class="font-semibold text-gray-700">ADR-002: Veritabanı</div>
+      </a>
+      <a href="adr-003-auth.html" class="flex-1 bg-white border border-gray-200 rounded-xl p-4 text-center hover:border-purple-300 hover:shadow-sm transition">
+        <div class="text-xs text-gray-400 mb-1">Sonraki</div>
+        <div class="font-semibold text-gray-700">ADR-003: Auth</div>
+      </a>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-6">
+
+      <!-- Status -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <i class="fas fa-info-circle text-purple-600"></i> Durum
+        </h2>
+        <div class="flex items-center gap-3">
+          <span class="bg-green-100 text-green-700 font-semibold px-4 py-2 rounded-xl">✅ Kabul Edildi</span>
+          <span class="text-gray-500 text-sm">15 Mart 2024 tarihinde ekip tarafından onaylandı.</span>
+        </div>
+      </div>
+
+      <!-- Context -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <i class="fas fa-book-open text-blue-600"></i> Bağlam (Context)
+        </h2>
+        <div class="prose text-gray-600 space-y-3">
+          <p>PawShelter platformu, birden fazla geliştirici tarafından uzun vadede sürdürülecek bir yazılım sistemidir. Proje kapsamında şu gereksinimler belirlenmiştir:</p>
+          <ul class="list-disc list-inside space-y-2 ml-4">
+            <li>Hayvan kayıt, güncelleme ve silme işlemleri</li>
+            <li>Sahiplenme talebi iş akışı (başvuru → değerlendirme → onay/red)</li>
+            <li>Kullanıcı kimlik doğrulama ve yetkilendirme</li>
+            <li>Sağlık kaydı ve aşı takibi</li>
+            <li>Admin raporlama ve istatistik paneli</li>
+          </ul>
+          <p class="mt-4">Bu gereksinimler göz önüne alındığında, sistemin <strong>test edilebilir</strong>, <strong>bakımı kolay</strong> ve <strong>ölçeklenebilir</strong> bir mimari üzerine inşa edilmesi gerektiği kararlaştırılmıştır.</p>
+          <p>Değerlendirilen mimari alternatifler:</p>
+          <ol class="list-decimal list-inside space-y-1 ml-4">
+            <li>Monolitik (Spaghetti) Mimari</li>
+            <li>MVC (Model-View-Controller)</li>
+            <li><strong>Clean / Layered Architecture</strong> ← Seçilen</li>
+            <li>Microservices Architecture</li>
+            <li>Hexagonal (Ports & Adapters) Architecture</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Decision -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <i class="fas fa-gavel text-green-600"></i> Karar (Decision)
+        </h2>
+        <p class="text-gray-600 mb-6">
+          <strong>Clean Architecture (Temiz Mimari)</strong> prensiplerine dayalı katmanlı bir yapı benimsenmiştir.
+          Bu mimari, Robert C. Martin'in (Uncle Bob) önerdiği bağımlılık kuralına (Dependency Rule) dayanmaktadır:
+          <em>"Kaynak kodu bağımlılıkları yalnızca içe doğru işaret edebilir."</em>
+        </p>
+
+        <!-- Architecture Diagram -->
+        <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+          <h3 class="font-bold text-gray-700 mb-6 text-center">Mimari Katman Diyagramı</h3>
+          <div class="space-y-3">
+            <!-- Presentation -->
+            <div class="bg-blue-100 border-2 border-blue-300 rounded-xl p-4">
+              <div class="font-bold text-blue-800 mb-2">🌐 Presentation Layer (Sunum Katmanı)</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-blue-200 text-blue-800 text-xs px-3 py-1 rounded-full">FastAPI Controllers</span>
+                <span class="bg-blue-200 text-blue-800 text-xs px-3 py-1 rounded-full">Request DTOs</span>
+                <span class="bg-blue-200 text-blue-800 text-xs px-3 py-1 rounded-full">Response DTOs</span>
+                <span class="bg-blue-200 text-blue-800 text-xs px-3 py-1 rounded-full">Middleware</span>
+                <span class="bg-blue-200 text-blue-800 text-xs px-3 py-1 rounded-full">Exception Handlers</span>
+              </div>
+            </div>
+            <div class="text-center text-gray-400 text-sm">⬇ Bağımlılık yönü (içe doğru)</div>
+            <!-- Application -->
+            <div class="bg-green-100 border-2 border-green-300 rounded-xl p-4">
+              <div class="font-bold text-green-800 mb-2">⚙️ Application Layer (Uygulama Katmanı)</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-green-200 text-green-800 text-xs px-3 py-1 rounded-full">AdoptionService</span>
+                <span class="bg-green-200 text-green-800 text-xs px-3 py-1 rounded-full">AnimalService</span>
+                <span class="bg-green-200 text-green-800 text-xs px-3 py-1 rounded-full">UserService</span>
+                <span class="bg-green-200 text-green-800 text-xs px-3 py-1 rounded-full">IRepository Interfaces</span>
+                <span class="bg-green-200 text-green-800 text-xs px-3 py-1 rounded-full">Use Cases</span>
+              </div>
+            </div>
+            <div class="text-center text-gray-400 text-sm">⬇ Bağımlılık yönü (içe doğru)</div>
+            <!-- Domain -->
+            <div class="bg-yellow-100 border-2 border-yellow-300 rounded-xl p-4">
+              <div class="font-bold text-yellow-800 mb-2">🏛️ Domain Layer (Alan Katmanı)</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-yellow-200 text-yellow-800 text-xs px-3 py-1 rounded-full">Animal Entity</span>
+                <span class="bg-yellow-200 text-yellow-800 text-xs px-3 py-1 rounded-full">User Entity</span>
+                <span class="bg-yellow-200 text-yellow-800 text-xs px-3 py-1 rounded-full">AdoptionRequest Entity</span>
+                <span class="bg-yellow-200 text-yellow-800 text-xs px-3 py-1 rounded-full">Value Objects</span>
+                <span class="bg-yellow-200 text-yellow-800 text-xs px-3 py-1 rounded-full">Domain Enums</span>
+                <span class="bg-yellow-200 text-yellow-800 text-xs px-3 py-1 rounded-full">Domain Exceptions</span>
+              </div>
+            </div>
+            <div class="text-center text-gray-400 text-sm">⬇ Bağımlılık yönü (içe doğru)</div>
+            <!-- Infrastructure -->
+            <div class="bg-purple-100 border-2 border-purple-300 rounded-xl p-4">
+              <div class="font-bold text-purple-800 mb-2">🔧 Infrastructure Layer (Altyapı Katmanı)</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-purple-200 text-purple-800 text-xs px-3 py-1 rounded-full">PostgreSQL Repositories</span>
+                <span class="bg-purple-200 text-purple-800 text-xs px-3 py-1 rounded-full">SQLAlchemy ORM</span>
+                <span class="bg-purple-200 text-purple-800 text-xs px-3 py-1 rounded-full">JWT Service</span>
+                <span class="bg-purple-200 text-purple-800 text-xs px-3 py-1 rounded-full">File Storage</span>
+                <span class="bg-purple-200 text-purple-800 text-xs px-3 py-1 rounded-full">Email Service</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLID Principles -->
+        <div class="bg-gray-50 rounded-xl p-5">
+          <h3 class="font-bold text-gray-700 mb-4">SOLID Prensiplerinin Uygulanması</h3>
+          <div class="space-y-3">
+            <div class="flex gap-3">
+              <span class="bg-purple-700 text-white text-xs font-bold px-2 py-1 rounded h-fit">S</span>
+              <div><strong class="text-gray-800">Single Responsibility:</strong> <span class="text-gray-600 text-sm">Her servis yalnızca bir iş alanından sorumludur. AdoptionService sadece sahiplenme operasyonlarını yönetir.</span></div>
+            </div>
+            <div class="flex gap-3">
+              <span class="bg-purple-700 text-white text-xs font-bold px-2 py-1 rounded h-fit">O</span>
+              <div><strong class="text-gray-800">Open/Closed:</strong> <span class="text-gray-600 text-sm">Yeni hayvan türleri veya sahiplenme kuralları mevcut kodu değiştirmeden eklenebilir.</span></div>
+            </div>
+            <div class="flex gap-3">
+              <span class="bg-purple-700 text-white text-xs font-bold px-2 py-1 rounded h-fit">L</span>
+              <div><strong class="text-gray-800">Liskov Substitution:</strong> <span class="text-gray-600 text-sm">Repository implementasyonları interface'leri tam olarak karşılar, birbirinin yerine kullanılabilir.</span></div>
+            </div>
+            <div class="flex gap-3">
+              <span class="bg-purple-700 text-white text-xs font-bold px-2 py-1 rounded h-fit">I</span>
+              <div><strong class="text-gray-800">Interface Segregation:</strong> <span class="text-gray-600 text-sm">IAnimalRepository ve IAdoptionRepository ayrı interface'ler olarak tanımlanmıştır.</span></div>
+            </div>
+            <div class="flex gap-3">
+              <span class="bg-purple-700 text-white text-xs font-bold px-2 py-1 rounded h-fit">D</span>
+              <div><strong class="text-gray-800">Dependency Inversion:</strong> <span class="text-gray-600 text-sm">Servisler concrete sınıflara değil, abstract interface'lere bağımlıdır. FastAPI Dependency Injection kullanılır.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consequences -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <i class="fas fa-balance-scale text-orange-600"></i> Sonuçlar (Consequences)
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="font-semibold text-green-700 mb-3 flex items-center gap-2">
+              <i class="fas fa-plus-circle"></i> Avantajlar
+            </h3>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-check text-green-500 mt-1 flex-shrink-0"></i>İş mantığı UI ve veritabanından tamamen bağımsız, unit test yazımı kolaylaşır</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-check text-green-500 mt-1 flex-shrink-0"></i>PostgreSQL yerine başka bir veritabanına geçiş yalnızca Infrastructure katmanını etkiler</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-check text-green-500 mt-1 flex-shrink-0"></i>Yeni özellikler mevcut kodu bozmadan eklenebilir</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-check text-green-500 mt-1 flex-shrink-0"></i>Ekip üyeleri farklı katmanlarda paralel çalışabilir</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-check text-green-500 mt-1 flex-shrink-0"></i>Kod okunabilirliği ve bakım kolaylığı artar</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-red-600 mb-3 flex items-center gap-2">
+              <i class="fas fa-minus-circle"></i> Dezavantajlar
+            </h3>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-times text-red-400 mt-1 flex-shrink-0"></i>Küçük projeler için fazla karmaşık olabilir (over-engineering riski)</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-times text-red-400 mt-1 flex-shrink-0"></i>Başlangıçta daha fazla boilerplate kod yazılması gerekir</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-times text-red-400 mt-1 flex-shrink-0"></i>Yeni geliştiricilerin öğrenme eğrisi daha dik olabilir</li>
+              <li class="flex items-start gap-2 text-sm text-gray-600"><i class="fas fa-times text-red-400 mt-1 flex-shrink-0"></i>Katmanlar arası veri dönüşümleri (DTO mapping) ek iş yükü oluşturur</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alternatives Considered -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <i class="fas fa-list-alt text-gray-600"></i> Değerlendirilen Alternatifler
+        </h2>
+        <div class="space-y-4">
+          <div class="border border-red-100 bg-red-50 rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="font-semibold text-red-700">Microservices</span>
+              <span class="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded">Reddedildi</span>
+            </div>
+            <p class="text-sm text-gray-600">Proje ölçeği için aşırı karmaşık. Operasyonel yük (Kubernetes, service mesh, distributed tracing) ekip kapasitesini aşar. Gelecekte gerekirse monolith'ten microservices'e geçiş yapılabilir.</p>
+          </div>
+          <div class="border border-yellow-100 bg-yellow-50 rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="font-semibold text-yellow-700">Basit MVC</span>
+              <span class="bg-yellow-100 text-yellow-600 text-xs px-2 py-0.5 rounded">Reddedildi</span>
+            </div>
+            <p class="text-sm text-gray-600">İş mantığının Controller veya Model içine sızması riski yüksek. Uzun vadede "Fat Controller" veya "Fat Model" antipattern'ine yol açar. Test edilebilirlik düşük.</p>
+          </div>
+          <div class="border border-green-100 bg-green-50 rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="font-semibold text-green-700">Clean Architecture</span>
+              <span class="bg-green-100 text-green-600 text-xs px-2 py-0.5 rounded">✅ Seçildi</span>
+            </div>
+            <p class="text-sm text-gray-600">Proje ölçeğine uygun, test edilebilir, bakımı kolay. Ekip deneyimi ve proje gereksinimleriyle en iyi örtüşen seçenek.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Nav -->
+    <div class="flex justify-between mt-8">
+      <a href="../index.html" class="flex items-center gap-2 text-gray-500 hover:text-purple-700 transition">
+        <i class="fas fa-arrow-left"></i> Ana Sayfa
+      </a>
+      <a href="adr-002-database.html" class="flex items-center gap-2 text-purple-700 hover:text-purple-900 font-semibold transition">
+        ADR-002: Veritabanı <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

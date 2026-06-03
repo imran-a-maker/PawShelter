@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kayıt Ol – PawShelter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="bg-gradient-to-br from-purple-700 via-purple-600 to-blue-600 min-h-screen flex items-center justify-center p-4">
+
+  <div class="w-full max-w-md fade-in">
+    <!-- Logo -->
+    <div class="text-center mb-8">
+      <div class="text-5xl mb-3">🐾</div>
+      <h1 class="text-3xl font-bold text-white">PawShelter</h1>
+      <p class="text-purple-200 mt-1">Hayvan Barınağı Yönetim Platformu</p>
+    </div>
+
+    <!-- Card -->
+    <div class="bg-white rounded-2xl shadow-2xl p-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">Hesap Oluştur</h2>
+      <p class="text-gray-500 text-sm mb-6">Sahiplenme başvurusu yapmak için kayıt olun.</p>
+
+      <form id="registerForm" novalidate>
+        <!-- Full Name -->
+        <div class="mb-4">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Ad Soyad</label>
+          <div class="relative">
+            <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input
+              id="regName"
+              type="text"
+              placeholder="Adınız Soyadınız"
+              class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+            />
+          </div>
+          <p id="nameError" class="text-red-500 text-xs mt-1 hidden">Ad soyad zorunludur.</p>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">E-posta Adresi</label>
+          <div class="relative">
+            <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input
+              id="regEmail"
+              type="email"
+              placeholder="email@ornek.com"
+              class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+            />
+          </div>
+          <p id="regEmailError" class="text-red-500 text-xs mt-1 hidden">Geçerli bir e-posta adresi girin.</p>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-4">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Telefon Numarası</label>
+          <div class="relative">
+            <i class="fas fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input
+              id="regPhone"
+              type="tel"
+              placeholder="05XX XXX XX XX"
+              class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+            />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Şifre</label>
+          <div class="relative">
+            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input
+              id="regPassword"
+              type="password"
+              placeholder="En az 8 karakter"
+              class="w-full pl-11 pr-12 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+            />
+            <button type="button" id="toggleRegPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <p id="regPasswordError" class="text-red-500 text-xs mt-1 hidden">Şifre en az 8 karakter olmalıdır.</p>
+          <!-- Password Strength -->
+          <div class="mt-2 flex gap-1">
+            <div class="h-1 flex-1 rounded-full bg-gray-200" id="strength1"></div>
+            <div class="h-1 flex-1 rounded-full bg-gray-200" id="strength2"></div>
+            <div class="h-1 flex-1 rounded-full bg-gray-200" id="strength3"></div>
+            <div class="h-1 flex-1 rounded-full bg-gray-200" id="strength4"></div>
+          </div>
+          <p id="strengthLabel" class="text-xs text-gray-400 mt-1"></p>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-6">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Şifre Tekrar</label>
+          <div class="relative">
+            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input
+              id="regConfirmPassword"
+              type="password"
+              placeholder="Şifrenizi tekrar girin"
+              class="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+            />
+          </div>
+          <p id="confirmError" class="text-red-500 text-xs mt-1 hidden">Şifreler eşleşmiyor.</p>
+        </div>
+
+        <!-- Terms -->
+        <div class="mb-6">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input id="termsCheck" type="checkbox" class="accent-purple-600 mt-1 flex-shrink-0" />
+            <span class="text-sm text-gray-600">
+              <a href="#" class="text-purple-700 hover:underline">Kullanım Koşulları</a> ve
+              <a href="#" class="text-purple-700 hover:underline">Gizlilik Politikası</a>'nı okudum ve kabul ediyorum.
+            </span>
+          </label>
+          <p id="termsError" class="text-red-500 text-xs mt-1 hidden">Devam etmek için koşulları kabul etmelisiniz.</p>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" id="registerBtn" class="w-full bg-purple-700 text-white py-3 rounded-xl font-bold hover:bg-purple-800 transition flex items-center justify-center gap-2">
+          <i class="fas fa-user-plus"></i> Kayıt Ol
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-sm text-gray-500">
+        Zaten hesabınız var mı?
+        <a href="login.html" class="text-purple-700 font-semibold hover:underline ml-1">Giriş Yap</a>
+      </div>
+    </div>
+
+    <div class="text-center mt-6 text-purple-200 text-xs">
+      © 2024 PawShelter – Yazılım Mimarisi Dersi Projesi
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Toggle password
+    document.getElementById('toggleRegPassword').addEventListener('click', function() {
+      const input = document.getElementById('regPassword');
+      const icon = this.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    });
+
+    // Password strength
+    document.getElementById('regPassword').addEventListener('input', function() {
+      const val = this.value;
+      const bars = [document.getElementById('strength1'), document.getElementById('strength2'), document.getElementById('strength3'), document.getElementById('strength4')];
+      const label = document.getElementById('strengthLabel');
+      bars.forEach(b => b.className = 'h-1 flex-1 rounded-full bg-gray-200');
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+      const colors = ['bg-red-400', 'bg-orange-400', 'bg-yellow-400', 'bg-green-500'];
+      const labels = ['', 'Zayıf', 'Orta', 'İyi', 'Güçlü'];
+      const labelColors = ['', 'text-red-500', 'text-orange-500', 'text-yellow-600', 'text-green-600'];
+      for (let i = 0; i < score; i++) {
+        bars[i].className = `h-1 flex-1 rounded-full ${colors[score - 1]}`;
+      }
+      label.textContent = labels[score];
+      label.className = `text-xs mt-1 ${labelColors[score]}`;
+    });
+
+    // Register form
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+      const name = document.getElementById('regName').value;
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regConfirmPassword').value;
+      const terms = document.getElementById('termsCheck').checked;
+
+      if (!name.trim()) { document.getElementById('nameError').classList.remove('hidden'); valid = false; }
+      else document.getElementById('nameError').classList.add('hidden');
+
+      if (!email || !/\S+@\S+\.\S+/.test(email)) { document.getElementById('regEmailError').classList.remove('hidden'); valid = false; }
+      else document.getElementById('regEmailError').classList.add('hidden');
+
+      if (!password || password.length < 8) { document.getElementById('regPasswordError').classList.remove('hidden'); valid = false; }
+      else document.getElementById('regPasswordError').classList.add('hidden');
+
+      if (password !== confirm) { document.getElementById('confirmError').classList.remove('hidden'); valid = false; }
+      else document.getElementById('confirmError').classList.add('hidden');
+
+      if (!terms) { document.getElementById('termsError').classList.remove('hidden'); valid = false; }
+      else document.getElementById('termsError').classList.add('hidden');
+
+      if (valid) {
+        const btn = document.getElementById('registerBtn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Kayıt yapılıyor...';
+        btn.disabled = true;
+        setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+      }
+    });
+  </script>
+</body>
+</html>
